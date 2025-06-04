@@ -1,0 +1,79 @@
+
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Synth City – Festival della Creatività Algoritmica</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <header>
+    <div>
+      <h1>Synth City</h1>
+      <p>Festival della Creatività Algoritmica – 12-14 Settembre 2025, Milano</p>
+    </div>
+  </header>
+
+  <nav>
+    <a href="#programma">Programma</a>
+    <a href="#ospiti">Ospiti</a>
+    <a href="#location">Location</a>
+    <a href="#biglietti">Biglietti</a>
+  </nav>
+
+  <section id="programma">
+    <h2>Programma</h2>
+    <img class="img-full" src="img 1.png" alt="Programma Synth City">
+    <p>Tre giorni di performance generative, installazioni interattive, musica sintetica e talk su AI e creatività. Il futuro dell'arte prende forma a Synth City.</p>
+  </section>
+
+  <section id="ospiti">
+    <h2>Ospiti</h2>
+    <img class="img-full" src="img 4.png" alt="Ospiti Synth City">
+    <p>Artisti digitali, sound designer, sviluppatori e visionari del mondo tech. Tra i nomi: Ava Matrix, PixelMorph, Dr. Neural, CyberSculpt, Neural.Bass e EchoFrame.</p>
+  </section>
+
+  <section id="location">
+    <h2>Location</h2>
+    <img class="img-full" src="img 3.png" alt="Base Milano Location">
+    <p>Base Milano – Un hub creativo nel cuore della città. Facile da raggiungere con mezzi pubblici e bike sharing. Ambienti spaziosi, atmosfera immersiva e accesso a ogni area espositiva.</p>
+  </section>
+
+  <section id="biglietti">
+    <h2>Biglietti</h2>
+    <img class="img-full" src="img 2.png" alt="Biglietti Synth City">
+    <p>Posti limitati. Acquista ora il tuo ingresso per vivere un'esperienza unica nel suo genere. Early bird disponibili fino al 15 luglio! Biglietti giornalieri e pass 3 giorni disponibili.</p>
+    <a class="cta" href="#" onclick="alert('Prenotazione non disponibile: evento portfolio.')">Prenota il tuo posto</a>
+  </section>
+
+  <footer>
+    &copy; 2025 Synth City Festival. Design by Mirko Pacione. Evento fittizio creato per portfolio. Tutti i diritti riservati.
+  </footer>
+
+  <script>
+    const sections = document.querySelectorAll("section");
+    const navLinks = document.querySelectorAll("nav a");
+
+    window.onscroll = () => {
+      let current = "";
+
+      sections.forEach((section) => {
+        const sectionTop = section.offsetTop - 60;
+        if (pageYOffset >= sectionTop) {
+          current = section.getAttribute("id");
+        }
+      });
+
+      navLinks.forEach((link) => {
+        link.classList.remove("active");
+        if (link.getAttribute("href") === `#${current}`) {
+          link.classList.add("active");
+        }
+      });
+    };
+  </script>
+
+</body>
+</html>
