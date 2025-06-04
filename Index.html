@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Synth City – Festival della Creatività Algoritmica</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"/>
+  <link rel="stylesheet" href="https://unpkg.com/aos@2.3.1/dist/aos.css"/>
+  <link rel="stylesheet" href="style.css"/>
+  <style>
+    header {
+      background: url('final_site_images/img 1.png') no-repeat center center/cover;
+      height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      color: white;
+    }
+    header::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.5);
+      z-index: 0;
+    }
+    header .content {
+      text-align: center;
+      z-index: 1;
+    }
+    nav {
+      background-color: #111133;
+    }
+    nav a {
+      color: #00fff7;
+      margin: 0 1rem;
+      text-decoration: none;
+      font-weight: bold;
+    }
+    section {
+      padding: 4rem 2rem;
+      text-align: center;
+      background: linear-gradient(180deg, #1a1a40, #0f0f2f);
+      color: white;
+    }
+    .parallax {
+      background-attachment: fixed;
+      background-size: cover;
+      background-position: center;
+    }
+    footer {
+      background-color: #111133;
+      color: #ccc;
+      text-align: center;
+      padding: 2rem;
+    }
+    .img-full {
+      max-width: 100%;
+      height: auto;
+      border-radius: 12px;
+      margin-bottom: 1rem;
+    }
+  </style>
+</head>
+<body>
+
+  <header class="parallax">
+    <div class="content" data-aos="zoom-in">
+      <h1 class="display-4 fw-bold">Synth City</h1>
+      <p class="lead">Festival della Creatività Algoritmica – 12-14 Settembre 2025, Milano</p>
+    </div>
+  </header>
+
+  <nav class="py-3 text-center">
+    <a href="#programma">Programma</a>
+    <a href="#ospiti">Ospiti</a>
+    <a href="#location">Location</a>
+    <a href="#biglietti">Biglietti</a>
+  </nav>
+
+  <section id="programma" class="container" data-aos="fade-up">
+    <h2 class="mb-4">Programma</h2>
+    <img class="img-full" src="final_site_images/img 2.png" alt="Programma Synth City">
+    <p class="mt-3">Tre giorni di performance generative, installazioni interattive, musica sintetica e talk su AI e creatività. Il futuro dell'arte prende forma a Synth City.</p>
+  </section>
+
+  <section id="ospiti" class="container" data-aos="fade-up">
+    <h2 class="mb-4">Ospiti</h2>
+    <img class="img-full" src="final_site_images/img 3.png" alt="Ospiti Synth City">
+    <p class="mt-3">Artisti digitali, sound designer, sviluppatori e visionari del mondo tech. Tra i nomi: Ava Matrix, PixelMorph, Dr. Neural, CyberSculpt, Neural.Bass e EchoFrame.</p>
+  </section>
+
+  <section id="location" class="container" data-aos="fade-up">
+    <h2 class="mb-4">Location</h2>
+    <img class="img-full" src="final_site_images/img 4.png" alt="Base Milano Location">
+    <p class="mt-3">Base Milano – Un hub creativo nel cuore della città. Facile da raggiungere con mezzi pubblici e bike sharing. Ambienti spaziosi, atmosfera immersiva e accesso a ogni area espositiva.</p>
+  </section>
+
+  <section id="biglietti" class="container" data-aos="fade-up">
+    <h2 class="mb-4">Biglietti</h2>
+    <img class="img-full" src="https://images.unsplash.com/photo-1592488292932-5a32ef190b43" alt="Biglietti Synth City">
+    <p class="mt-3">Posti limitati. Acquista ora il tuo ingresso per vivere un'esperienza unica nel suo genere. Early bird disponibili fino al 15 luglio! Biglietti giornalieri e pass 3 giorni disponibili.</p>
+    <a class="btn btn-info mt-3" href="#" onclick="alert('Prenotazione non disponibile: evento portfolio.')">Prenota il tuo posto</a>
+  </section>
+
+  <footer>
+    &copy; 2025 Synth City Festival. Design by Mirko Pacione. Evento fittizio creato per portfolio. Tutti i diritti riservati.
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+  <script>
+    AOS.init();
+
+    const sections = document.querySelectorAll(\"section\");
+    const navLinks = document.querySelectorAll(\"nav a\");
+
+    window.onscroll = () => {
+      let current = \"\";
+      sections.forEach((section) => {
+        const sectionTop = section.offsetTop - 60;
+        if (pageYOffset >= sectionTop) {
+          current = section.getAttribute(\"id\");
+        }
+      });
+      navLinks.forEach((link) => {
+        link.classList.remove(\"active\");
+        if (link.getAttribute(\"href\") === `#${current}`) {
+          link.classList.add(\"active\");
+        }
+      });
+    };
+  </script>
+
+</body>
+</html>
