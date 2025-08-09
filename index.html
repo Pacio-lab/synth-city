@@ -1,79 +1,410 @@
-
 <!DOCTYPE html>
 <html lang="it">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Synth City – Festival della Creatività Algoritmica</title>
-  <link rel="stylesheet" href="style.css">
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Pacman — Electric Sports Cars</title>
+  <meta name="description" content="Pacman: auto sportive elettriche con pannelli fotovoltaici integrati nel tetto. Prestazioni estreme, ricarica intelligente, ruote personalizzabili a colori." />
+  <meta property="og:title" content="Pacman — Electric Sports Cars" />
+  <meta property="og:description" content="Sportive elettriche con SolarRoof+ e ruote colorate. Scegli il tuo stile, guida il futuro." />
+  <meta name="theme-color" content="#0d0f1a" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+  <style>
+    :root{
+      --bg:#0b0e16;
+      --panel:#111521;
+      --ink:#eaf1ff;
+      --muted:#93a0b6;
+      --accent:#ffd400; /* giallo “Pacman” */
+      --accent-2:#6cf0ff; /* ciano tech */
+      --ok:#41d695;
+      --warning:#ff8a00;
+      --maxw:1200px;
+      --radius:16px;
+      --shadow:0 10px 30px rgba(0,0,0,.35);
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0;
+      font-family:Inter, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      color:var(--ink);
+      background:
+        radial-gradient(80rem 60rem at 70% -10%, rgba(255,212,0,.08), transparent 60%),
+        radial-gradient(60rem 40rem at -10% 30%, rgba(108,240,255,.06), transparent 60%),
+        var(--bg);
+      line-height:1.5;
+      -webkit-font-smoothing:antialiased;
+      text-rendering:optimizeLegibility;
+    }
+    a{color:inherit;text-decoration:none}
+    .container{max-width:var(--maxw);margin-inline:auto;padding:0 20px}
+    /* NAV */
+    header{
+      position:sticky;top:0;z-index:40;
+      backdrop-filter:saturate(140%) blur(10px);
+      background:rgba(11,14,22,.55);
+      border-bottom:1px solid rgba(255,255,255,.06);
+    }
+    .nav{display:flex;align-items:center;justify-content:space-between;height:64px}
+    .brand{display:flex;align-items:center;gap:.65rem;font-weight:800;letter-spacing:.5px}
+    .badge{
+      width:28px;height:28px;border-radius:50%;
+      background:
+        conic-gradient(from 90deg, var(--accent) 0 25%, transparent 25%),
+        radial-gradient(circle at 60% 40%, #ffe45a 0 35%, transparent 35%),
+        #1a2031;
+      box-shadow:0 0 0 2px rgba(255,212,0,.35), inset 0 0 30px rgba(255,212,0,.2);
+    }
+    nav ul{display:flex;gap:1.2rem;list-style:none;margin:0;padding:0}
+    nav a{color:var(--muted);font-weight:600}
+    nav a:hover, nav a:focus{color:var(--ink)}
+    .cta{
+      background:linear-gradient(135deg,var(--accent),#ffe45a);
+      color:#1b1b1b;border:none;padding:.75rem 1rem;border-radius:999px;font-weight:800;
+      box-shadow:0 8px 20px rgba(255,212,0,.25);
+      cursor:pointer
+    }
+    .cta--ghost{
+      background:transparent;border:1px solid rgba(255,255,255,.2);
+      color:var(--ink)
+    }
+    /* HERO */
+    .hero{
+      position:relative;overflow:hidden;
+      padding: clamp(48px, 8vw, 90px) 0 40px;
+    }
+    .hero-grid{
+      display:grid;gap:32px;align-items:center;
+      grid-template-columns: 1.1fr .9fr;
+    }
+    .eyebrow{color:var(--accent);font-weight:800;letter-spacing:1px;text-transform:uppercase;font-size:.85rem}
+    h1{font-size:clamp(2.2rem, 4vw, 3.5rem);line-height:1.05;margin:.4rem 0 1rem}
+    .lead{color:var(--muted);font-size:1.1rem;max-width:46ch}
+    .hero-actions{display:flex;gap:.75rem;margin-top:1.25rem;flex-wrap:wrap}
+    .metrics{display:flex;gap:20px;flex-wrap:wrap;margin-top:1.4rem}
+    .chip{
+      background:rgba(255,255,255,.06);
+      border:1px solid rgba(255,255,255,.08);
+      padding:.6rem .8rem;border-radius:999px;font-weight:600;color:var(--ink)
+    }
+    /* CAR CARD */
+    .car-wrap{
+      background:linear-gradient(180deg, rgba(255,255,255,.05), rgba(255,255,255,0));
+      border:1px solid rgba(255,255,255,.08);
+      border-radius:var(--radius); padding:18px; box-shadow:var(--shadow);
+    }
+    .car-canvas{aspect-ratio:16/9;background:radial-gradient(120% 90% at 50% 105%, #10162a 0, #0b0e16 60%);border-radius:12px;display:grid;place-items:center;position:relative;overflow:hidden}
+    .gridlines{
+      position:absolute;inset:0;opacity:.18;
+      background:
+        linear-gradient(transparent 98%, rgba(108,240,255,.8) 99%),
+        linear-gradient(90deg, transparent 98%, rgba(108,240,255,.8) 99%);
+      background-size: 40px 40px;
+      mask: radial-gradient(70% 60% at 50% 40%, #000 0 60%, transparent 70%);
+    }
+    .glow{
+      position:absolute;inset:auto 10% -30% 10%;height:60%;
+      background:radial-gradient(50% 60% at 50% 100%, rgba(108,240,255,.35), transparent 70%);
+      filter:blur(20px)
+    }
+    .swatches{display:flex;gap:.5rem;flex-wrap:wrap;margin-top:.75rem}
+    .swatch{
+      width:28px;height:28px;border-radius:50%;border:2px solid rgba(255,255,255,.5);
+      cursor:pointer
+    }
+    /* MODELS */
+    .section{padding:60px 0}
+    .kicker{color:var(--accent-2);font-weight:800;letter-spacing:.8px;text-transform:uppercase;font-size:.8rem}
+    .grid{display:grid;gap:24px}
+    .grid.cols-3{grid-template-columns:repeat(3, 1fr)}
+    .card{
+      background:var(--panel);border:1px solid rgba(255,255,255,.07);border-radius:14px;padding:20px;
+      transition:transform .2s ease, box-shadow .2s ease
+    }
+    .card:hover{transform:translateY(-3px);box-shadow:var(--shadow)}
+    .card h3{margin:.25rem 0 .5rem}
+    .tag{display:inline-block;font-size:.75rem;color:#0b0e16;background:var(--accent);font-weight:800;border-radius:6px;padding:.25rem .45rem}
+    .specs{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:.75rem}
+    .spec{background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.08);border-radius:10px;padding:.6rem;text-align:center}
+    .spec small{display:block;color:var(--muted)}
+    /* TECH */
+    .tech{
+      display:grid;gap:28px;grid-template-columns:1.1fr .9fr;align-items:center
+    }
+    .bullets{display:grid;gap:12px}
+    .bullet{display:flex;gap:.75rem;align-items:flex-start}
+    .dot{width:12px;height:12px;border-radius:50%;background:var(--ok);margin-top:.35rem;box-shadow:0 0 0 4px rgba(65,214,149,.15)}
+    /* CTA */
+    .cta-block{
+      background:
+        radial-gradient(60% 100% at 50% 0%, rgba(255,212,0,.15), transparent 70%),
+        linear-gradient(180deg, #101526, #0b0e16);
+      border:1px solid rgba(255,255,255,.08);border-radius:16px;padding:28px; text-align:center
+    }
+    /* FOOTER */
+    footer{padding:36px 0;color:var(--muted)}
+    .footgrid{display:grid;gap:20px;grid-template-columns: 1.2fr .8fr}
+    .social{display:flex;gap:12px}
+    .social a{display:inline-grid;place-items:center;width:36px;height:36px;border-radius:50%;border:1px solid rgba(255,255,255,.15)}
+    /* RESPONSIVE */
+    @media (max-width: 960px){
+      .hero-grid,.tech{grid-template-columns:1fr}
+      .grid.cols-3{grid-template-columns:1fr 1fr}
+      .footgrid{grid-template-columns:1fr}
+    }
+    @media (max-width: 640px){
+      .grid.cols-3{grid-template-columns:1fr}
+      .nav{height:58px}
+    }
+    /* Visually hidden for a11y */
+    .vh{position:absolute!important;height:1px;width:1px;overflow:hidden;clip:rect(1px, 1px, 1px, 1px);white-space:nowrap}
+  </style>
 </head>
 <body>
-
+  <!-- NAV -->
   <header>
-    <div>
-      <h1>Synth City</h1>
-      <p>Festival della Creatività Algoritmica – 12-14 Settembre 2025, Milano</p>
+    <div class="container nav" role="navigation" aria-label="Principale">
+      <a class="brand" href="#">
+        <span class="badge" aria-hidden="true"></span>
+        <span>Pacman</span>
+      </a>
+      <nav aria-label="Sezioni">
+        <ul>
+          <li><a href="#modelli">Modelli</a></li>
+          <li><a href="#tecnologia">Tecnologia</a></li>
+          <li><a href="#configuratore">Configuratore</a></li>
+          <li><a href="#prenota">Prenota</a></li>
+        </ul>
+      </nav>
+      <button class="cta" onclick="document.getElementById('prenota').scrollIntoView({behavior:'smooth'})" aria-label="Prenota un test drive">Prenota</button>
     </div>
   </header>
 
-  <nav>
-    <a href="#programma">Programma</a>
-    <a href="#ospiti">Ospiti</a>
-    <a href="#location">Location</a>
-    <a href="#biglietti">Biglietti</a>
-  </nav>
+  <!-- HERO -->
+  <section class="hero">
+    <div class="container hero-grid">
+      <div>
+        <div class="eyebrow">Nuova generazione</div>
+        <h1>Sportive elettriche con <span style="color:var(--accent)">SolarRoof+</span> e ruote a colori.</h1>
+        <p class="lead">Pacman unisce design radicale, aerodinamica attiva e tetto fotovoltaico integrato per estendere l’autonomia mentre guidi. Personalizza le ruote con colori audaci e rendi tua ogni curva.</p>
+        <div class="hero-actions">
+          <a class="cta" href="#modelli">Scopri i modelli</a>
+          <a class="cta cta--ghost" href="#configuratore">Configura ora</a>
+        </div>
+        <div class="metrics">
+          <div class="chip">0–100 km/h in 2,8s</div>
+          <div class="chip">Fino a 780 km WLTP*</div>
+          <div class="chip">+35 km/giorno dal sole**</div>
+        </div>
+      </div>
 
-  <section id="programma">
-    <h2>Programma</h2>
-    <img class="img-full" src="img 1.png" alt="Programma Synth City">
-    <p>Tre giorni di performance generative, installazioni interattive, musica sintetica e talk su AI e creatività. Il futuro dell'arte prende forma a Synth City.</p>
+      <div class="car-wrap" id="configuratore" aria-label="Anteprima configuratore ruote">
+        <div class="car-canvas">
+          <!-- Decorative glow/grid -->
+          <div class="glow" aria-hidden="true"></div>
+          <div class="gridlines" aria-hidden="true"></div>
+
+          <!-- Inline SVG car (simplified) -->
+          <svg id="carSVG" viewBox="0 0 900 450" width="100%" height="100%" role="img" aria-labelledby="carTitle carDesc">
+            <title id="carTitle">Pacman Coupé con tetto fotovoltaico e ruote colorate</title>
+            <desc id="carDesc">Auto sportiva vista laterale, tetto scuro fotovoltaico, ruote personalizzabili a colori.</desc>
+
+            <!-- Shadow -->
+            <ellipse cx="450" cy="380" rx="300" ry="35" fill="rgba(0,0,0,.5)"></ellipse>
+
+            <!-- Body -->
+            <path d="M120 290 C180 200, 320 160, 540 170 C650 175, 720 210, 780 260 L790 300 L120 300 Z"
+                  fill="#1f2a44" stroke="#6cf0ff" stroke-opacity=".35" stroke-width="2"/>
+            <!-- Solar roof -->
+            <path d="M300 200 C380 170, 520 165, 650 185 L660 220 L290 220 Z"
+                  fill="#0e131f"/>
+            <!-- PV cell pattern -->
+            <g opacity=".35">
+              <defs>
+                <pattern id="cells" width="20" height="20" patternUnits="userSpaceOnUse">
+                  <rect width="18" height="18" x="1" y="1" rx="2" ry="2" fill="#0c1220" stroke="#1c2742" stroke-width="1"/>
+                </pattern>
+              </defs>
+              <path d="M300 200 C380 170, 520 165, 650 185 L660 220 L290 220 Z" fill="url(#cells)"/>
+            </g>
+
+            <!-- Windows -->
+            <path d="M340 210 C420 185, 540 182, 630 195 L640 225 L330 225 Z"
+                  fill="#162032" />
+
+            <!-- Door line -->
+            <path d="M470 200 L465 290" stroke="#2e3b5e" stroke-width="3" />
+
+            <!-- Wheels -->
+            <g id="frontWheel" transform="translate(650,305)">
+              <circle r="54" fill="#0a0a0a" stroke="#202020" stroke-width="6"></circle>
+              <circle id="frontRim" r="40" fill="#ffd400"></circle>
+              <circle r="8" fill="#0a0a0a"></circle>
+            </g>
+            <g id="rearWheel" transform="translate(260,305)">
+              <circle r="54" fill="#0a0a0a" stroke="#202020" stroke-width="6"></circle>
+              <circle id="rearRim" r="40" fill="#ffd400"></circle>
+              <circle r="8" fill="#0a0a0a"></circle>
+            </g>
+
+            <!-- Accents -->
+            <rect x="735" y="270" width="28" height="6" rx="3" fill="#6cf0ff"/>
+            <rect x="140" y="276" width="24" height="6" rx="3" fill="#ff5959"/>
+          </svg>
+        </div>
+
+        <div class="swatches" aria-label="Selettore colore ruote">
+          <button class="swatch" style="background:#ffd400" aria-label="Ruote gialle" data-color="#ffd400"></button>
+          <button class="swatch" style="background:#ff5a5f" aria-label="Ruote rosse" data-color="#ff5a5f"></button>
+          <button class="swatch" style="background:#6cf0ff" aria-label="Ruote ciano" data-color="#6cf0ff"></button>
+          <button class="swatch" style="background:#41d695" aria-label="Ruote verde" data-color="#41d695"></button>
+          <button class="swatch" style="background:#9b6bff" aria-label="Ruote viola" data-color="#9b6bff"></button>
+          <button class="swatch" style="background:#ffffff" aria-label="Ruote bianche" data-color="#ffffff"></button>
+          <button class="swatch" style="background:#ff8a00" aria-label="Ruote arancioni" data-color="#ff8a00"></button>
+        </div>
+        <small class="muted" style="color:var(--muted);display:block;margin-top:.5rem">Tip: clicca un colore per personalizzare i cerchi.</small>
+      </div>
+    </div>
   </section>
 
-  <section id="ospiti">
-    <h2>Ospiti</h2>
-    <img class="img-full" src="img 4.png" alt="Ospiti Synth City">
-    <p>Artisti digitali, sound designer, sviluppatori e visionari del mondo tech. Tra i nomi: Ava Matrix, PixelMorph, Dr. Neural, CyberSculpt, Neural.Bass e EchoFrame.</p>
+  <!-- MODELLI -->
+  <section id="modelli" class="section">
+    <div class="container">
+      <div class="kicker">Gamma Pacman</div>
+      <h2 style="margin:.3rem 0 1rem">Scegli la tua indole.</h2>
+      <div class="grid cols-3">
+        <article class="card">
+          <span class="tag">Nova</span>
+          <h3>Pacman Nova</h3>
+          <p class="lead" style="font-size:1rem">Coupé agile per la città, autonomia estesa grazie a SolarRoof+.</p>
+          <div class="specs">
+            <div class="spec"><strong>2,8s</strong><small>0–100 km/h</small></div>
+            <div class="spec"><strong>620 km</strong><small>WLTP</small></div>
+            <div class="spec"><strong>350 kW</strong><small>Ricarica</small></div>
+          </div>
+        </article>
+        <article class="card">
+          <span class="tag">Vortex</span>
+          <h3>Pacman Vortex</h3>
+          <p class="lead" style="font-size:1rem">Prestazioni da track-day con comfort da gran turismo.</p>
+          <div class="specs">
+            <div class="spec"><strong>2,3s</strong><small>0–100 km/h</small></div>
+            <div class="spec"><strong>700 km</strong><small>WLTP</small></div>
+            <div class="spec"><strong>800V</strong><small>Architettura</small></div>
+          </div>
+        </article>
+        <article class="card">
+          <span class="tag">Eclipse</span>
+          <h3>Pacman Eclipse</h3>
+          <p class="lead" style="font-size:1rem">Top di gamma. Aerodinamica attiva e tetto solare a 3 zone.</p>
+          <div class="specs">
+            <div class="spec"><strong>2,0s</strong><small>0–100 km/h</small></div>
+            <div class="spec"><strong>780 km</strong><small>WLTP</small></div>
+            <div class="spec"><strong>+35 km</strong><small>giorno sole</small></div>
+          </div>
+        </article>
+      </div>
+    </div>
   </section>
 
-  <section id="location">
-    <h2>Location</h2>
-    <img class="img-full" src="img 3.png" alt="Base Milano Location">
-    <p>Base Milano – Un hub creativo nel cuore della città. Facile da raggiungere con mezzi pubblici e bike sharing. Ambienti spaziosi, atmosfera immersiva e accesso a ogni area espositiva.</p>
+  <!-- TECNOLOGIA -->
+  <section id="tecnologia" class="section">
+    <div class="container tech">
+      <div>
+        <div class="kicker">SolarRoof+</div>
+        <h2 style="margin:.2rem 0 1rem">Energia dal sole. Ancora più strada.</h2>
+        <p class="lead">Il tetto fotovoltaico a film sottile ricarica la batteria anche in marcia. L’algoritmo SunTrack gestisce i flussi energetici per massimizzare ogni watt disponibile.</p>
+        <div class="bullets" role="list">
+          <div class="bullet" role="listitem"><span class="dot" aria-hidden="true"></span><div><strong>Fino a 35 km/giorno</strong> di autonomia aggiuntiva in condizioni ideali.</div></div>
+          <div class="bullet" role="listitem"><span class="dot" aria-hidden="true"></span><div><strong>Smart Charge</strong>: priorità ai consumi di climatizzazione quando sei in sosta al sole.</div></div>
+          <div class="bullet" role="listitem"><span class="dot" aria-hidden="true"></span><div><strong>Cellule a 3 zone</strong> per ridurre le perdite in ombra parziale.</div></div>
+        </div>
+      </div>
+      <div class="card" aria-hidden="true">
+        <div style="background:conic-gradient(from 0deg, rgba(108,240,255,.15), rgba(255,212,0,.2), rgba(108,240,255,.15));height:240px;border-radius:12px;border:1px solid rgba(255,255,255,.08);display:grid;place-items:center">
+          <div style="font-weight:800;letter-spacing:.8px;color:var(--muted)">SOLARROOF+ VISUAL</div>
+        </div>
+        <p style="color:var(--muted);margin:.6rem 0 0">Visual concettuale. Dati simulati. *Autonomia variabile in base a stile di guida e condizioni ambientali.</p>
+      </div>
+    </div>
   </section>
 
-  <section id="biglietti">
-    <h2>Biglietti</h2>
-    <img class="img-full" src="img 2.png" alt="Biglietti Synth City">
-    <p>Posti limitati. Acquista ora il tuo ingresso per vivere un'esperienza unica nel suo genere. Early bird disponibili fino al 15 luglio! Biglietti giornalieri e pass 3 giorni disponibili.</p>
-    <a class="cta" href="#" onclick="alert('Prenotazione non disponibile: evento portfolio.')">Prenota il tuo posto</a>
+  <!-- CTA / PRENOTA -->
+  <section id="prenota" class="section">
+    <div class="container cta-block">
+      <h2 style="margin:0 0 .5rem">Prenota un test drive.</h2>
+      <p class="lead" style="margin:0 0 1rem">Scopri il brivido di Pacman dal vivo. Scegli tu dove e quando.</p>
+      <form class="container" style="max-width:680px;display:grid;gap:10px;grid-template-columns:1fr 1fr">
+        <label>
+          <span class="vh">Nome</span>
+          <input required type="text" name="nome" placeholder="Nome" style="width:100%;padding:.9rem;border-radius:10px;border:1px solid rgba(255,255,255,.15);background:#0f1423;color:var(--ink)">
+        </label>
+        <label>
+          <span class="vh">Cognome</span>
+          <input required type="text" name="cognome" placeholder="Cognome" style="width:100%;padding:.9rem;border-radius:10px;border:1px solid rgba(255,255,255,.15);background:#0f1423;color:var(--ink)">
+        </label>
+        <label style="grid-column:1 / -1">
+          <span class="vh">Email</span>
+          <input required type="email" name="email" placeholder="Email" style="width:100%;padding:.9rem;border-radius:10px;border:1px solid rgba(255,255,255,.15);background:#0f1423;color:var(--ink)">
+        </label>
+        <label>
+          <span class="vh">Città</span>
+          <input type="text" name="citta" placeholder="Città" style="width:100%;padding:.9rem;border-radius:10px;border:1px solid rgba(255,255,255,.15);background:#0f1423;color:var(--ink)">
+        </label>
+        <label>
+          <span class="vh">Data preferita</span>
+          <input type="date" name="data" style="width:100%;padding:.9rem;border-radius:10px;border:1px solid rgba(255,255,255,.15);background:#0f1423;color:var(--ink)">
+        </label>
+        <button type="submit" class="cta" style="grid-column:1 / -1">Invia richiesta</button>
+      </form>
+    </div>
   </section>
 
+  <!-- FOOTER -->
   <footer>
-    &copy; 2025 Synth City Festival. Design by Mirko Pacione. Evento fittizio creato per portfolio. Tutti i diritti riservati.
+    <div class="container footgrid">
+      <div>
+        <div class="brand" style="margin-bottom:.5rem"><span class="badge" aria-hidden="true"></span><span>Pacman</span></div>
+        <small>© <span id="year"></span> Pacman Motors — Concept site. Tutti i diritti riservati.</small>
+      </div>
+      <div style="justify-self:end">
+        <div class="social" aria-label="Social">
+          <a href="#" aria-label="Instagram"><span aria-hidden="true">IG</span></a>
+          <a href="#" aria-label="YouTube"><span aria-hidden="true">YT</span></a>
+          <a href="#" aria-label="X/Twitter"><span aria-hidden="true">X</span></a>
+        </div>
+      </div>
+    </div>
   </footer>
 
   <script>
-    const sections = document.querySelectorAll("section");
-    const navLinks = document.querySelectorAll("nav a");
+    // Current year
+    document.getElementById('year').textContent = new Date().getFullYear();
 
-    window.onscroll = () => {
-      let current = "";
-
-      sections.forEach((section) => {
-        const sectionTop = section.offsetTop - 60;
-        if (pageYOffset >= sectionTop) {
-          current = section.getAttribute("id");
-        }
+    // Wheel color configurator
+    const swatches = document.querySelectorAll('.swatch');
+    const front = document.getElementById('frontRim');
+    const rear = document.getElementById('rearRim');
+    swatches.forEach(s => {
+      s.addEventListener('click', () => {
+        const color = s.dataset.color;
+        front.setAttribute('fill', color);
+        rear.setAttribute('fill', color);
+        // ripple feedback
+        s.animate([{transform:'scale(1)'},{transform:'scale(.9)'},{transform:'scale(1)'}],{duration:180});
       });
+    });
 
-      navLinks.forEach((link) => {
-        link.classList.remove("active");
-        if (link.getAttribute("href") === `#${current}`) {
-          link.classList.add("active");
-        }
+    // Smooth anchor scrolling for old browsers (basic)
+    document.querySelectorAll('a[href^="#"]').forEach(a=>{
+      a.addEventListener('click', e=>{
+        const id = a.getAttribute('href').slice(1);
+        const el = document.getElementById(id);
+        if(el){ e.preventDefault(); el.scrollIntoView({behavior:'smooth'}); }
       });
-    };
+    });
   </script>
-
 </body>
 </html>
